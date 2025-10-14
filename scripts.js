@@ -1,40 +1,26 @@
-const gallery = document.querySelector('.gallery');
-const images = document.querySelectorAll('.gallery img');
-let index = 0;
-let interval = setInterval(nextImage, 4000);
+const track = document.querySelector(".carousel-track");
+const slides = Array.from(track.children);
+const nextButton = document.querySelector(".next");
+const prevButton = document.querySelector(".prev");
 
-function showImage(i) {
-  gallery.style.transform = `translateX(-${i * 100}%)`;
+let currentIndex = 0;
+
+function moveToSlide(index) {
+  track.style.transform = `translateX(-${index * 100}%)`;
 }
 
-function nextImage() {
-  index = (index + 1) % images.length;
-  showImage(index);
-}
-
-function prevImage() {
-  index = (index - 1 + images.length) % images.length;
-  showImage(index);
-}
-
-// Add event listeners for manual control
-document.querySelector('.next').addEventListener('click', () => {
-  nextImage();
-  resetInterval();
+nextButton.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  moveToSlide(currentIndex);
 });
 
-document.querySelector('.prev').addEventListener('click', () => {
-  prevImage();
-  resetInterval();
+prevButton.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  moveToSlide(currentIndex);
 });
 
-function resetInterval() {
-  clearInterval(interval);
-  interval = setInterval(nextImage, 4000);
-}
-
-// Add flip animation when image changes
+// Auto-slide every 5s
 setInterval(() => {
-  images[index].classList.add('flip');
-  setTimeout(() => images[index].classList.remove('flip'), 800);
-}, 4000);
+  currentIndex = (currentIndex + 1) % slides.length;
+  moveToSlide(currentIndex);
+}, 5000);
