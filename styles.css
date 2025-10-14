@@ -1,233 +1,112 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
+/* Global styles */
 body {
-  background: linear-gradient(135deg, #e0f7fa, #fff);
-  color: #222;
-  overflow-x: hidden;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #141414);
+  color: #f0f0f0;
+  text-align: center;
 }
 
 header {
-  text-align: center;
   padding: 2rem 1rem;
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  border-bottom: 4px solid #ffd54f;
+  background: linear-gradient(90deg, #181818, #0f0f0f);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-header h1 {
-  font-size: 2.5rem;
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #ffcc00;
 }
 
-header p {
-  font-size: 1.2rem;
-  color: #f5f5f5;
+h2 {
+  color: #ffcc00;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
 }
 
-section {
+.projects {
+  padding: 2rem;
   max-width: 1000px;
-  margin: 3rem auto;
-  padding: 0 1rem;
+  margin: auto;
 }
 
-section h2 {
-  color: #01579b;
-  border-left: 5px solid #ffd54f;
-  padding-left: 10px;
-  margin-bottom: 1rem;
+/* Phone showcase container */
+.phone-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-top: 2rem;
 }
 
-.intro p, .skills ul, .projects p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
-
-.skills ul {
-  list-style: square inside;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #01579b;
-  color: white;
-}
-
-/* ---- Animated Background ---- */
-.animated-bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+.phone-frame {
+  width: 280px;
+  height: 580px;
+  background: #000;
+  border: 12px solid #2a2a2a;
+  border-radius: 36px;
   overflow: hidden;
-  z-index: -1;
-  background: linear-gradient(135deg, #e3f2fd, #fff);
+  position: relative;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
-.animated-bg::before, .animated-bg::after {
+.phone-frame::before {
   content: "";
   position: absolute;
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 215, 64, 0.3);
-  border-radius: 50%;
-  animation: moveShapes 15s ease-in-out infinite alternate;
-}
-
-.animated-bg::after {
-  top: 50%;
-  left: 60%;
-  width: 500px;
-  height: 500px;
-  background: rgba(3, 155, 229, 0.2);
-}
-
-@keyframes moveShapes {
-  0% { transform: translate(-50px, -50px); }
-  100% { transform: translate(80px, 80px); }
-}
-
-/* ---- Project Gallery (Carousel) ---- */
-.gallery-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 500px;
+  top: 10px;
+  left: 50%;
+  width: 60px;
+  height: 8px;
+  background: #333;
   border-radius: 10px;
-  margin-top: 1.5rem;
-}
-
-.gallery {
-  display: flex;
-  transition: transform 0.8s ease-in-out;
-  width: 100%;
-  height: 100%;
-}
-
-.gallery img {
-  width: 100%;
-  height: 500px;
-  object-fit: contain;
-  border-radius: 10px;
-  flex-shrink: 0;
-  background: white;
-  padding: 10px;
-}
-
-/* ---- Carousel Controls ---- */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(1, 87, 155, 0.6);
-  color: white;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 10px 15px;
-  border-radius: 50%;
-  transition: background 0.3s;
-  z-index: 10;
-}
-
-.carousel-btn:hover {
-  background: rgba(1, 87, 155, 0.9);
-}
-
-.prev {
-  left: 10px;
-}
-.next {
-  right: 10px;
-}
-
-/* ---- Card Flip Effect ---- */
-.gallery img {
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.8s;
-}
-
-.gallery img.flip {
-  transform: rotateY(180deg);
-}
-
-/* Carousel */
-.carousel-container {
-  position: relative;
-  width: 100%;
-  max-width: 850px;
-  margin: 2rem auto;
-  overflow: hidden;
-  perspective: 1000px;
+  transform: translateX(-50%);
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transition: transform 1s ease;
+  width: 100%;
+  height: 100%;
 }
 
-.carousel-item {
-  min-width: 100%;
-  transition: transform 0.8s ease, opacity 0.8s ease;
-  transform-style: preserve-3d;
+.carousel-track img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.carousel-controls {
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.carousel-item img {
-  width: 70%;
-  height: auto;
-  border-radius: 25px;
-  object-fit: cover;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.5s ease;
-}
-
-.carousel-item.active img {
-  transform: scale(1.05) rotateY(0deg);
-  filter: brightness(1);
-}
-
-.carousel-item:not(.active) img {
-  transform: scale(0.85) rotateY(25deg);
-  filter: brightness(0.5);
+  margin-top: 1rem;
+  gap: 1rem;
 }
 
 .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(255, 255, 255, 0.1);
   border: none;
+  color: #ffcc00;
   font-size: 2rem;
-  padding: 0.4rem 0.8rem;
   cursor: pointer;
   border-radius: 50%;
-  transition: background 0.3s ease;
-  z-index: 10;
+  width: 50px;
+  height: 50px;
+  transition: 0.3s;
 }
 
 .carousel-btn:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
-.carousel-btn.prev {
-  left: 15px;
-}
-
-.carousel-btn.next {
-  right: 15px;
-}
-
-/* Optional glowing animation */
-.carousel-item.active img {
-  box-shadow: 0 0 25px rgba(0, 200, 255, 0.6);
+/* Footer */
+footer {
+  padding: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  background: #0d0d0d;
+  margin-top: 3rem;
 }
