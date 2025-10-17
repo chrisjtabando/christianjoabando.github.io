@@ -1,49 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Christian Jo T. Abando | Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Christian Jo T. Abando — Full-Stack Portfolio</title>
+  <meta name="description" content="Portfolio of Christian Jo T. Abando — IT Graduate, Web & Mobile Developer, Virtual Assistant." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Christian Jo T. Abando</h1>
-    <p>Virtual Assistant | Web Developer | IT Graduate</p>
-  </header>
+  <div class="bg-layer" aria-hidden="true"></div>
+  <!-- Decorative canvas for subtle moving shapes that respond to cursor. aria-hidden true so it's ignored by assistive tech -->
+  <canvas id="cursor-canvas" aria-hidden="true"></canvas>
 
-  <section class="projects">
-    <h2>MyUCI Appointment App (Flutter)</h2>
-    <p>
-      A Flutter-based mobile app developed for a local ultrasound clinic that allows
-      patients to <strong>book, manage, and update</strong> appointments easily.
-      Designed to streamline patient flow and reduce waiting time through an efficient,
-      digital-first booking system.
-    </p>
+  <nav class="nav" id="top-nav" role="navigation">
+    <div class="nav-inner">
+      <div class="brand">Christian Jo Abando</div>
+      <ul class="nav-links" role="menu" aria-label="Primary">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="cta" id="contact-cta" aria-label="Contact">Contact</button>
+    </div>
+  </nav>
 
-    <div class="phone-showcase">
-      <div class="phone-frame">
-        <div class="carousel-track">
-          <img src="images/Login Screen.png" alt="Login Screen" />
-          <img src="images/Home Screen.png" alt="Home Screen" />
-          <img src="images/ForgotReset Password Screen.png" alt="Forgot/Reset Password" />
-          <img src="images/Profile Update Screen.png" alt="Profile Update Screen" />
-          <img src="images/Services Screen.png" alt="Services Screen" />
-          <img src="images/Sign Up Screen.png" alt="Sign Up Screen" />
-          <img src="images/Book Appointment Screen.png" alt="Book Appointment Screen" />
+  <header class="hero" role="banner">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Christian Jo T. Abando</h1>
+        <p class="lead">IT Graduate • Full-Stack Web & Mobile Developer • Experienced Virtual Assistant</p>
+  <p class="hero-sub">I design and build practical web and mobile solutions focused on clarity, maintainability, and measurable results. Typical engagements include prototype UI builds, lightweight serverless backends, and automation that frees time for higher-value work. Currently focused on Flutter prototypes, frontend polish, and remote client support.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn primary">View Projects</a>
+          <a href="#contact" class="btn ghost">Contact</a>
         </div>
       </div>
-      <div class="carousel-controls">
-        <button class="carousel-btn prev">&#10094;</button>
-        <button class="carousel-btn next">&#10095;</button>
-      </div>
-    </div>
-  </section>
 
-  <footer>
-    <p>© 2025 Christian Jo T. Abando | Portfolio</p>
+      <figure class="hero-photo" aria-hidden="true">
+        <img src="images/fam pic.jpg" alt="Christian Jo Abando graduation photo" />
+        <figcaption>BS Information Technology — Global Academy of Technology & Entrepreneurship (2025)</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <!-- ABOUT -->
+    <section id="about" class="panel reveal">
+      <div class="panel-grid">
+        <div class="panel-left">
+          <h2>About</h2>
+          <p>Hello — I’m <strong>Christian</strong>, an IT graduate, web & mobile developer, and remote Virtual Assistant since 2020. I combine administrative workflows with hands-on development to deliver practical, production-ready solutions: booking apps, automation scripts, and clear, accessible front-ends.</p>
+          <p>My approach centers on delivering value quickly: identify the smallest high-impact change, build a minimally viable solution, and iterate with real users. I aim for maintainable code, clear documentation, and measurable outcomes for clients.</p>
+          <p><strong>What I deliver:</strong></p>
+          <ul>
+            <li>Usable prototypes that validate ideas quickly (Flutter, web).</li>
+            <li>Small backend automations and integrations (Firebase, APIs).</li>
+            <li>Polished front-end UI with accessibility and responsive behavior.</li>
+          </ul>
+
+          <div class="meta-cards">
+            <div class="meta"><span class="m-title">Years active (VA)</span><span class="m-value">2020 — Present</span></div>
+            <div class="meta"><span class="m-title">Location</span><span class="m-value">Philippines (UTC+08)</span></div>
+            <div class="meta"><span class="m-title">Degree</span><span class="m-value">BS Information Technology (2025)</span></div>
+          </div>
+        </div>
+
+        <div class="panel-right">
+          <h3>Approach</h3>
+          <p class="muted">Product-minded, iterative, and documentation-friendly.</p>
+          <ul class="approach">
+            <li><strong>Understand the user:</strong> start by solving the smallest pain point.</li>
+            <li><strong>Ship iteratively:</strong> prototypes → feedback → polish.</li>
+            <li><strong>Automate where it helps:</strong> reduce repetitive work and document solutions.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick case studies / outcomes (short, relevant) -->
+    <section id="outcomes" class="panel reveal-sm">
+      <h2>Selected Outcomes</h2>
+      <div class="panel-grid">
+        <div>
+          <h4>Appointment App — MyUCI</h4>
+          <p class="muted">Delivered a patient-first booking flow and registration system that reduced front-desk walk-ins and sped up patient intake. I owned the prototype UI and client testing coordination.</p>
+        </div>
+        <div>
+          <h4>Automation & Admin</h4>
+          <p class="muted">Built lightweight automations and templates (sheets, forms, and scripts) that saved recurring administrative time for small businesses and teams.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="panel reveal">
+      <h2>Skills & Tools</h2>
+      <div class="skills-grid">
+        <div class="skill-block">
+          <h4>Frontend</h4>
+          <div class="skill">HTML, CSS (Flex/Grid, animations) <span class="pill">Advanced</span></div>
+          <div class="skill">JavaScript (ES6+) <span class="pill">Intermediate</span></div>
+        </div>
+        <div class="skill-block">
+          <h4>Mobile</h4>
+          <div class="skill">Flutter (UI & Firebase) <span class="pill">Intermediate</span></div>
+          <div class="skill">Android prototyping <span class="pill">Basic</span></div>
+        </div>
+        <div class="skill-block">
+          <h4>Backend & DB</h4>
+          <div class="skill">Firebase (Auth, Firestore) <span class="pill">Intermediate</span></div>
+          <div class="skill">SQL / MySQL <span class="pill">Basic</span></div>
+        </div>
+        <div class="skill-block">
+          <h4>Tools</h4>
+          <div class="skill">VS Code, Git (basic), Notion</div>
+          <div class="skill">Google Workspace, Asana, Canva</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="panel reveal">
+      <h2>Selected Projects</h2>
+
+      <article class="project">
+        <div class="proj-left">
+          <h3>MyUCI — Appointment App (Flutter)</h3>
+          <p class="muted">A patient-first booking app developed for a local ultrasound clinic. I focused on reducing walk-ins by creating a quick registration and booking flow.</p>
+
+          <h4>Highlights</h4>
+          <ul>
+            <li>Patient registration & login (Firebase Auth)</li>
+            <li>Booking calendar with selectable time slots</li>
+            <li>Profile management, services list, and announcements</li>
+          </ul>
+
+          <h4>Tech & Role</h4>
+          <p><strong>Stack:</strong> Flutter • Firebase • Google Cloud</p>
+          <p><strong>Role:</strong> Full prototype development — UI, basic backend, deployment/testing coordination with client</p>
+        </div>
+
+        <div class="proj-right">
+          <p class="gallery-note">Screenshots — click to enlarge</p>
+          <div class="gallery-grid">
+            <figure class="thumb"><img src="images/Login Screen.png" alt="Login Screen" data-index="0"></figure>
+            <figure class="thumb"><img src="images/Home Screen.png" alt="Home Screen" data-index="1"></figure>
+            <figure class="thumb"><img src="images/ForgotReset Password Screen.png" alt="Forgot/Reset Password" data-index="2"></figure>
+            <figure class="thumb"><img src="images/Manage Appointment Screen.png" alt="Manage Appointment" data-index="3"></figure>
+            <figure class="thumb"><img src="images/Profile Update Screen.png" alt="Profile Update Screen" data-index="4"></figure>
+            <figure class="thumb"><img src="images/Services Screen.png" alt="Services Screen" data-index="5"></figure>
+            <figure class="thumb"><img src="images/Sign Up Screen.png" alt="Sign Up Screen" data-index="6"></figure>
+            <figure class="thumb"><img src="images/Book Appointment Screen.png" alt="Book Appointment Screen" data-index="7"></figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="project reveal-sm">
+        <div class="proj-left">
+          <h3>Library Database Management System (Demo)</h3>
+          <p class="muted">Academic CRUD demo to manage books, borrowers, and transactions with simple admin flows.</p>
+          <p><strong>Tech:</strong> Java • MySQL • PHPMyAdmin</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="panel reveal">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <div class="entry">
+          <h4>Freelance Virtual Assistant</h4>
+          <p class="company">Remote — 2020 to Present</p>
+          <ul>
+            <li>Admin support, email & calendar management, scheduling.</li>
+            <li>Data entry, research, spreadsheet automation (Google Sheets).</li>
+            <li>Tutorial services: basic computer skills & musical instruments.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <h4>Data Gathering & Research Specialist — TaxProper Inc.</h4>
+          <p class="company">2019 — 2020</p>
+          <ul>
+            <li>Collected and standardized property tax data for US-based projects.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <h4>Independent Developer — MyUCI (Client Project)</h4>
+          <p class="company">2024</p>
+          <ul>
+            <li>Full prototype delivery: Flutter UI, Firebase backend, testing coordination with clinic staff.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION & LEARNING -->
+    <section id="education" class="panel reveal">
+      <h2>Education & Continuous Learning</h2>
+      <ul>
+        <li><strong>BS Information Technology</strong> — Global Academy of Technology & Entrepreneurship (2025)</li>
+        <li>Web Development coursework — freecodecamp.org</li>
+        <li>Flutter practice — Google Codelabs</li>
+      </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="panel reveal">
+      <h2>Contact</h2>
+      <p>I’m available for freelance VA projects, entry-level developer roles, and small product collaborations. If you have a project in mind, please contact me the way you normally do — this page intentionally has no public links.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Christian Jo T. Abando — Built with HTML, CSS & JavaScript</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
