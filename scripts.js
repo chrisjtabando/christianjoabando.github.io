@@ -1,96 +1,338 @@
-/* Professional full-stack portfolio: dark, minimal, responsive */
-/* CSS variables for quick theming */
-:root{--bg:#050506;--text:#e8f0f2;--muted:#bcd7db;--accent:#ffd54f;--accent-2:#66fcf1}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:var(--text)}
-.bg-layer{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(0,0,0,0.55),rgba(0,0,0,0.85));filter:brightness(.82);pointer-events:none}
+// Portfolio UI: clean, commented, and extended features
+// - Smooth scrolling
+// - Reveal on scroll
+// - Lightbox gallery
+// - CTA scrolling
+// - Header shrink on scroll
+// - Decorative canvas: moving shapes that respond to cursor
 
-/* Decorative canvas: fullscreen, pointer-events none so it doesn't block interactions */
-#cursor-canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+(function(){
+  'use strict';
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:40;background:rgba(6,6,6,0.55);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.03)}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 18px}
-.brand{color:#66fcf1;font-weight:600}
-.nav-links{display:flex;gap:16px;list-style:none;margin:0;padding:0}
-.nav-links a{color:#d7e6ea;text-decoration:none;font-weight:500;font-size:.95rem;opacity:.95}
-.cta{background:linear-gradient(90deg,#66fcf1,#4ecfff);color:#041018;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+  // --- DOM ready ---------------------------------------------------------------------------------
+  document.addEventListener('DOMContentLoaded', () => {
+    initSmoothScroll();
+    initRevealOnScroll();
+    initLightbox();
+    initCTA();
+    initHeaderShrink();
+    initCursorCanvas(); // animated shapes responding to cursor
+    initViewProjectsButton(); // ensure View Projects button always scrolls to projects
+  });
 
-/* HERO */
-.hero{padding:36px 18px 46px;display:flex;align-items:center;justify-content:center;z-index:2;position:relative}
-.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center}
-.hero-text h1{margin:0;color:#ffd54f;font-size:2rem;letter-spacing:0.4px}
-.lead{color:#dbeff2;margin-top:8px;font-size:1.05rem}
-.hero-sub{color:#bcd7db;margin-top:10px}
-.hero-actions{margin-top:14px;display:flex;gap:12px}
-.btn{padding:10px 14px;border-radius:9px;text-decoration:none;font-weight:600}
-.btn.primary{background:#ffd54f;color:#081018}
-.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dfeff3}
+  // --- Smooth scroll for internal anchors --------------------------------------------------------
+  function initSmoothScroll(){
+    // Use event delegation so dynamically added links or links inside other elements still work.
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      // allow normal behavior when modifier keys are used
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
-/* hero photo */
-.hero-photo{display:flex;flex-direction:column;align-items:center}
-.hero-photo img{width:320px;border-radius:12px;display:block;box-shadow:0 18px 60px rgba(0,0,0,0.7);border:6px solid rgba(255,255,255,0.02)}
-.hero-photo figcaption{margin-top:10px;color:#bfcad0;font-size:.9rem;text-align:center}
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
 
-/* MAIN container */
-.site-main{position:relative;z-index:2;max-width:1100px;margin:26px auto;padding:0 18px 60px}
+      const target = document.querySelector(href);
+      if (!target) return;
 
-/* Panel */
-.panel{background:linear-gradient(180deg,rgba(12,12,12,0.6),rgba(12,12,12,0.55));border-radius:10px;border:1px solid rgba(255,255,255,0.02);padding:20px;margin-bottom:20px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-h2{color:#ffd54f;margin:0 0 8px}
+      e.preventDefault();
 
-/* Outcomes (small case-study style) */
-.panel-grid.outcomes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.panel-grid.outcomes h4{margin:0 0 6px;color:var(--accent)}
-.panel-grid.outcomes p{margin:0;color:var(--muted)}
+      // compute top position and subtract nav height if present
+      const nav = document.querySelector('.nav');
+      const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+      const top = window.scrollY + target.getBoundingClientRect().top - Math.round(navHeight + 8);
 
-/* About */
-.panel-grid{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
-.approach{list-style:none;padding:0;margin:8px 0 0;color:#c9d9dc}
-.meta-cards{display:flex;gap:10px;margin-top:12px}
-.meta{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;min-width:130px}
-.m-title{display:block;color:#cfe8f0;font-size:.85rem}
-.m-value{font-weight:700;color:#eef8fb}
+      window.scrollTo({ top, behavior: 'smooth' });
 
-/* Skills */
-.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.skill-block h4{margin:0 0 8px;color:#cfe8f0}
-.pill{background:rgba(255,255,255,0.04);padding:4px 8px;border-radius:999px;font-size:.75rem;margin-left:8px;color:#e6fbff}
+      // accessibility: move focus to section
+      target.setAttribute('tabindex', '-1');
+      target.focus();
+      setTimeout(() => target.removeAttribute('tabindex'), 1200);
+    });
+  }
 
-/* Projects / gallery */
-.project{display:grid;grid-template-columns:1fr 420px;gap:18px;align-items:start}
-.gallery-note{color:#cbd6db;margin-bottom:8px}
-.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
-.thumb{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:6px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .16s ease,box-shadow .16s ease}
-.thumb img{width:100%;height:auto;max-height:220px;object-fit:cover;border-radius:6px}
-.thumb:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,0.65)}
+  // --- Reveal on scroll using IntersectionObserver -----------------------------------------------
+  function initRevealOnScroll(){
+    const revealables = document.querySelectorAll('.reveal, .reveal-sm');
+    if (!('IntersectionObserver' in window) || revealables.length === 0) return;
 
-/* Experience */
-.timeline{display:grid;gap:14px}
-.entry h4{margin:0}
-.company{font-style:italic;color:#9fbfc9;margin-bottom:8px}
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
 
-/* Testimonials / blockquote */
-blockquote{background:rgba(255,255,255,0.02);padding:12px 18px;border-left:4px solid rgba(102,252,241,0.08);color:#cee6ea;margin:0}
+    revealables.forEach(el => obs.observe(el));
+  }
 
-/* Footer */
-.site-footer{text-align:center;padding:18px 10px;color:#bfc6ca;border-top:1px solid rgba(255,255,255,0.02)}
+  // --- Lightbox gallery -------------------------------------------------------------------------
+  function initLightbox(){
+    const thumbs = Array.from(document.querySelectorAll('.gallery-grid .thumb img'));
+    if (thumbs.length === 0) return;
 
-/* lightbox */
-#lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.86);z-index:9999;padding:20px}
-#lightbox.visible{display:flex}
-#lightbox .lb-content{max-width:920px;max-height:92vh;width:100%;display:flex;align-items:center;gap:16px}
-#lightbox img{max-width:calc(100% - 120px);max-height:92vh;object-fit:contain;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.8)}
-.lb-prev,.lb-next{background:rgba(255,255,255,0.06);color:#fff;border:none;padding:12px 14px;font-size:26px;border-radius:8px;cursor:pointer}
-.lb-close{position:absolute;right:18px;top:18px;background:rgba(255,255,255,0.06);border:none;padding:8px 10px;color:#fff;font-size:18px;border-radius:8px;cursor:pointer}
+    // create lightbox elements
+    const lb = document.createElement('div');
+    lb.id = 'lightbox';
+    lb.innerHTML = `
+      <button class="lb-close" aria-label="Close (Esc)"></button>
+      <div class="lb-content" role="dialog" aria-modal="true">
+        <button class="lb-prev" aria-label="Previous (Left)">&lsaquo;</button>
+        <img src="" alt="" />
+        <button class="lb-next" aria-label="Next (Right)">&rsaquo;</button>
+      </div>
+      <div class="lb-meta"><div class="lb-caption"></div><div class="lb-index"></div></div>
+    `;
+    document.body.appendChild(lb);
 
-/* reveal animations */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-.reveal.visible{opacity:1;transform:none}
-.reveal-sm{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
-.reveal-sm.visible{opacity:1;transform:none}
+    const lbEl = document.getElementById('lightbox');
+    const lbImg = lbEl.querySelector('img');
+    const lbCaption = lbEl.querySelector('.lb-caption');
+    const lbIndex = lbEl.querySelector('.lb-index');
+    const btnPrev = lbEl.querySelector('.lb-prev');
+    const btnNext = lbEl.querySelector('.lb-next');
+    const btnClose = lbEl.querySelector('.lb-close');
 
-/* responsive */
-@media (max-width:1100px){.hero-inner{grid-template-columns:1fr 300px}.panel-grid{grid-template-columns:1fr}.project{grid-template-columns:1fr}.skills-grid{grid-template-columns:1fr}}
-@media (max-width:700px){.nav-links{display:none}.hero-inner{grid-template-columns:1fr}.hero-photo img{width:260px}}
-@media (max-width:420px){.hero-photo img{width:220px}}
+    let idx = 0;
+    const total = thumbs.length;
+
+    function open(i){
+      idx = (i + total) % total;
+      const t = thumbs[idx];
+      lbImg.src = t.src;
+      lbImg.alt = t.alt || '';
+      lbCaption.textContent = t.alt || '';
+      lbIndex.textContent = `${idx + 1} / ${total}`;
+      lbEl.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+      btnClose.focus();
+      // preload neighbors
+      new Image().src = thumbs[(idx+1)%total].src;
+      new Image().src = thumbs[(idx-1+total)%total].src;
+    }
+
+    function closeLB(){ lbEl.classList.remove('visible'); document.body.style.overflow = ''; }
+    function prev(){ open(idx - 1); }
+    function next(){ open(idx + 1); }
+
+    thumbs.forEach((t,i) => t.addEventListener('click', () => open(i)));
+    btnPrev.addEventListener('click', prev);
+    btnNext.addEventListener('click', next);
+    btnClose.addEventListener('click', closeLB);
+
+    lbEl.addEventListener('click', (e) => { if (e.target === lbEl) closeLB(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lbEl.classList.contains('visible')) return;
+      if (e.key === 'Escape') closeLB();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    });
+  }
+
+  // --- CTA scroll to contact -------------------------------------------------------------------
+  function initCTA(){
+    const cta = document.getElementById('contact-cta');
+    if (!cta) return;
+    cta.addEventListener('click', () => {
+      const contact = document.getElementById('contact');
+      if (!contact) return;
+      contact.scrollIntoView({ behavior: 'smooth' });
+      window.scrollBy(0, -12);
+    });
+  }
+
+  // --- Ensure "View Projects" button scrolls to projects -------------------------------------
+  function initViewProjectsButton(){
+    // target the primary button inside hero; fall back to any .btn.primary that links to #projects
+    const btn = document.querySelector('.hero-actions .btn.primary') || document.querySelector('a.btn.primary');
+    if (!btn) return;
+
+    btn.addEventListener('click', (e) => {
+      // if it's a normal anchor with href and browser handled it, let it be
+      // otherwise run a smooth scroll to the projects section
+      const href = btn.getAttribute && btn.getAttribute('href');
+      if (href && href.startsWith('#')) return; // existing anchor handler will take care of smooth scroll
+
+      e.preventDefault();
+      const projects = document.getElementById('projects');
+      if (!projects) return;
+      projects.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.scrollBy(0, -12);
+      // move focus for accessibility
+      projects.setAttribute('tabindex', '-1');
+      projects.focus();
+      // remove tabindex after a short delay
+      setTimeout(() => projects.removeAttribute('tabindex'), 1200);
+    });
+  }
+
+  // --- Header shrink on scroll -----------------------------------------------------------------
+  function initHeaderShrink(){
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 24) nav.classList.add('nav-sm'); else nav.classList.remove('nav-sm');
+    });
+  }
+
+  // --- Cursor-aware canvas shapes ---------------------------------------------------------------
+  function initCursorCanvas(){
+    const canvas = document.getElementById('cursor-canvas');
+    if (!canvas || !canvas.getContext) return;
+    const ctx = canvas.getContext('2d');
+
+    // Resize canvas to full screen (devicePixelRatio aware)
+    // Use CSS pixel sizes for drawing commands to avoid mismatches that leave uncovered areas.
+    let cw = window.innerWidth;
+    let ch = window.innerHeight;
+    function resize(){
+      const dpr = window.devicePixelRatio || 1;
+      cw = window.innerWidth;
+      ch = window.innerHeight;
+      canvas.width = Math.round(cw * dpr);
+      canvas.height = Math.round(ch * dpr);
+      canvas.style.width = cw + 'px';
+      canvas.style.height = ch + 'px';
+      // reset transform then scale once — avoid accumulating scale on repeated resize
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Tron-like particles
+    const particles = [];
+    const max = 28; // allow more for striking Tron trails, but cap
+
+    // pointer tracking
+    const pointer = { x: window.innerWidth/2, y: window.innerHeight/2, down: false };
+    window.addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; });
+    window.addEventListener('pointerdown', () => pointer.down = true);
+    window.addEventListener('pointerup', () => pointer.down = false);
+
+    // neon palette tuned for Tron-like look
+    const palette = [
+      {h:200, s:100, l:60}, // cyan
+      {h:270, s:95, l:60},  // magenta/purple
+      {h:180, s:95, l:55}   // teal
+    ];
+
+    // helper
+    function rand(a,b){ return Math.random() * (b-a) + a; }
+
+    // spawn particles near the pointer; they'll have neon core and glow
+    function spawn(x,y){
+      if (particles.length >= max) return;
+      const p = {
+        x: x + rand(-8,8),
+        y: y + rand(-8,8),
+        vx: rand(-0.6, 0.6),
+        vy: rand(-0.6, 0.6),
+        r: rand(1.6, 4.6),
+        life: rand(800, 1800), // ms
+        born: performance.now(),
+        col: palette[Math.floor(rand(0, palette.length))]
+      };
+      particles.push(p);
+    }
+
+    // animation
+    let last = performance.now();
+    function tick(now){
+      const dt = now - last;
+      last = now;
+
+  // draw a translucent rectangle (in CSS pixels) to create trailing fade
+  ctx.fillStyle = 'rgba(2,6,12,0.22)'; // dark but slightly transparent to leave trails
+  ctx.fillRect(0, 0, cw, ch);
+
+      // occasionally spawn near pointer when moving
+      if (Math.random() < 0.6) spawn(pointer.x, pointer.y);
+
+      // update particles and draw neon glow + core
+      // Use additive blending for stronger neon glow
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = particles.length - 1; i >= 0; i--){
+        const p = particles[i];
+        const age = now - p.born;
+        const t = age / p.life;
+        if (t >= 1){ particles.splice(i,1); continue; }
+
+        // simple movement and slight attraction to pointer for more dynamic lines
+        p.vx += (pointer.x - p.x) * 0.0006;
+        p.vy += (pointer.y - p.y) * 0.0006;
+        p.vx *= 0.985; p.vy *= 0.985;
+        p.x += p.vx * dt * 0.06;
+        p.y += p.vy * dt * 0.06;
+
+        // neon glow (larger, soft) - stronger center and wider falloff
+        const glowR = p.r * 6;
+        const alpha = 1 - t;
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
+        grad.addColorStop(0, `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, ${0.55 * alpha})`);
+        grad.addColorStop(0.35, `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, ${0.28 * alpha})`);
+        grad.addColorStop(0.7, `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, ${0.08 * alpha})`);
+        grad.addColorStop(1, `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, 0)`);
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(p.x, p.y, glowR, 0, Math.PI*2); ctx.fill();
+
+        // bright core with shadow for neon bloom
+        ctx.save();
+        ctx.shadowBlur = Math.max(6, p.r * 6);
+        ctx.shadowColor = `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, ${0.95 * alpha})`;
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, ${0.98 * alpha})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+
+        // thin neon outline (slightly brighter)
+        ctx.beginPath();
+        ctx.strokeStyle = `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, ${0.95 * alpha})`;
+        ctx.lineWidth = Math.max(0.6, p.r * 0.28);
+        ctx.arc(p.x, p.y, p.r + 1, 0, Math.PI*2);
+        ctx.stroke();
+      }
+
+      // draw connecting lines between nearby particles for Tron grid effect
+      for (let i = 0; i < particles.length; i++){
+        const a = particles[i];
+        for (let j = i+1; j < particles.length; j++){
+          const b = particles[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d2 = dx*dx + dy*dy;
+          if (d2 < 2500){ // up to 50px distance for lines
+            const dist = Math.sqrt(d2);
+            const alpha = 0.26 * (1 - dist / 50);
+            // gradient between the two particle hues
+            const lg = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+            lg.addColorStop(0, `hsla(${a.col.h}, ${a.col.s}%, ${a.col.l}%, ${alpha})`);
+            lg.addColorStop(1, `hsla(${b.col.h}, ${b.col.s}%, ${b.col.l}%, ${alpha * 0.9})`);
+            ctx.beginPath();
+            ctx.strokeStyle = lg;
+            ctx.lineWidth = 1.0;
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // keep particles under max
+      if (particles.length > max) particles.splice(0, particles.length - max);
+
+      // reset composite mode back to default so non-glow drawing isn't affected
+      ctx.globalCompositeOperation = 'source-over';
+
+      requestAnimationFrame(tick);
+    }
+
+  // prime canvas with a clear black background once (use CSS pixels)
+  ctx.fillStyle = '#02060c';
+  ctx.fillRect(0, 0, cw, ch);
+    requestAnimationFrame(tick);
+
+    // Pause updates on hidden tab
+    document.addEventListener('visibilitychange', () => { if (document.hidden) last = performance.now(); });
+  }
+
+})();
