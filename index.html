@@ -4,12 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Christian Jo T. Abando — Full-Stack Portfolio</title>
-  <meta name="description" content="Portfolio of Christian Jo T. Abando — IT Graduate, Web & Mobile Developer, Virtual Assistant." />
+  <meta name="description" content="Portfolio of Christian Jo T. Abando — IT Graduate, Web & Mobile Developer, Virtual Assistant, AU & US Customer Support." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="bg-layer" aria-hidden="true"></div>
-  <!-- Decorative canvas for subtle moving shapes that respond to cursor. aria-hidden true so it's ignored by assistive tech -->
   <canvas id="cursor-canvas" aria-hidden="true"></canvas>
 
   <nav class="nav" id="top-nav" role="navigation">
@@ -30,8 +29,8 @@
     <div class="hero-inner">
       <div class="hero-text">
         <h1>Christian Jo T. Abando</h1>
-        <p class="lead">IT Graduate • Full-Stack Web & Mobile Developer • Experienced Virtual Assistant</p>
-  <p class="hero-sub">I design and build practical web and mobile solutions focused on clarity, maintainability, and measurable results. Typical engagements include prototype UI builds, lightweight serverless backends, and automation that frees time for higher-value work. Currently focused on Flutter prototypes, frontend polish, and remote client support.</p>
+        <p class="lead">IT Graduate • Full-Stack Web & Mobile Developer • Experienced Virtual Assistant • AU & US Customer Support</p>
+        <p class="hero-sub">Experienced in Australian telecom support (MyNetFone) and US BPO accounts. I design and build practical web and mobile solutions focused on clarity, maintainability, and measurable results. My work includes Flutter prototypes, responsive web projects, and automation scripts that save time and improve efficiency for clients.</p>
         <div class="hero-actions">
           <a href="#projects" class="btn primary">View Projects</a>
           <a href="#contact" class="btn ghost">Contact</a>
@@ -51,13 +50,15 @@
       <div class="panel-grid">
         <div class="panel-left">
           <h2>About</h2>
-          <p>Hello — I’m <strong>Christian</strong>, an IT graduate, web & mobile developer, and remote Virtual Assistant since 2020. I combine administrative workflows with hands-on development to deliver practical, production-ready solutions: booking apps, automation scripts, and clear, accessible front-ends.</p>
+          <p>Hello, I’m <strong>Christian</strong>, an IT graduate, web & mobile developer, and remote Virtual Assistant since 2020. I combine administrative workflows with hands-on development to deliver practical, production-ready solutions: booking apps, automation scripts, and clear, accessible front-ends.</p>
+          <p>I’ve provided Tier 1–2 technical support for Australian clients at <strong>MyNetFone</strong>, guiding users through VoIP, NBN, and network troubleshooting with clarity and patience. Additionally, I have experience handling US BPO accounts and negotiating financial settlements for clients.</p>
           <p>My approach centers on delivering value quickly: identify the smallest high-impact change, build a minimally viable solution, and iterate with real users. I aim for maintainable code, clear documentation, and measurable outcomes for clients.</p>
           <p><strong>What I deliver:</strong></p>
           <ul>
             <li>Usable prototypes that validate ideas quickly (Flutter, web).</li>
             <li>Small backend automations and integrations (Firebase, APIs).</li>
             <li>Polished front-end UI with accessibility and responsive behavior.</li>
+            <li>Technical support solutions for web, mobile, and telecom clients.</li>
           </ul>
 
           <div class="meta-cards">
@@ -79,17 +80,21 @@
       </div>
     </section>
 
-    <!-- Quick case studies / outcomes (short, relevant) -->
+    <!-- Quick case studies / outcomes -->
     <section id="outcomes" class="panel reveal-sm">
       <h2>Selected Outcomes</h2>
       <div class="panel-grid">
         <div>
           <h4>Appointment App — MyUCI</h4>
-          <p class="muted">Delivered a patient-first booking flow and registration system that reduced front-desk walk-ins and sped up patient intake. I owned the prototype UI and client testing coordination.</p>
+          <p class="muted">Delivered a patient-first booking flow and registration system that reduced front-desk walk-ins, improved appointment scheduling, and enhanced clinic efficiency. I owned the prototype UI, backend integration with Firebase, and client testing coordination.</p>
         </div>
         <div>
           <h4>Automation & Admin</h4>
-          <p class="muted">Built lightweight automations and templates (sheets, forms, and scripts) that saved recurring administrative time for small businesses and teams.</p>
+          <p class="muted">Built lightweight automations, Google Sheet scripts, and templates that saved recurring administrative time for small businesses and teams.</p>
+        </div>
+        <div>
+          <h4>Beyond Finance – Debt Negotiation</h4>
+          <p class="muted">Performed outbound calls to creditors for debt settlement offers, coordinated payments with PayOps, and maintained accurate documentation while ensuring client satisfaction.</p>
         </div>
       </div>
     </section>
@@ -114,6 +119,12 @@
           <div class="skill">SQL / MySQL <span class="pill">Basic</span></div>
         </div>
         <div class="skill-block">
+          <h4>Technical Support</h4>
+          <div class="skill">VoIP & NBN troubleshooting <span class="pill">Intermediate</span></div>
+          <div class="skill">Modem/router configuration & network diagnostics <span class="pill">Intermediate</span></div>
+          <div class="skill">Customer support for AU & US clients <span class="pill">Advanced</span></div>
+        </div>
+        <div class="skill-block">
           <h4>Tools</h4>
           <div class="skill">VS Code, Git (basic), Notion</div>
           <div class="skill">Google Workspace, Asana, Canva</div>
@@ -128,20 +139,18 @@
       <article class="project">
         <div class="proj-left">
           <h3>MyUCI — Appointment App (Flutter)</h3>
-          <p class="muted">A patient-first booking app developed for a local ultrasound clinic. I focused on reducing walk-ins by creating a quick registration and booking flow.</p>
-
+          <p class="muted">A patient-first booking app developed for a local ultrasound clinic. Focused on reducing walk-ins and improving booking efficiency.</p>
           <h4>Highlights</h4>
           <ul>
             <li>Patient registration & login (Firebase Auth)</li>
             <li>Booking calendar with selectable time slots</li>
             <li>Profile management, services list, and announcements</li>
+            <li>Streamlined clinic workflow and reduced front-desk congestion</li>
           </ul>
-
           <h4>Tech & Role</h4>
           <p><strong>Stack:</strong> Flutter • Firebase • Google Cloud</p>
-          <p><strong>Role:</strong> Full prototype development — UI, basic backend, deployment/testing coordination with client</p>
+          <p><strong>Role:</strong> Full prototype development — UI, backend integration, deployment/testing coordination</p>
         </div>
-
         <div class="proj-right">
           <p class="gallery-note">Screenshots — click to enlarge</p>
           <div class="gallery-grid">
@@ -160,8 +169,24 @@
       <article class="project reveal-sm">
         <div class="proj-left">
           <h3>Library Database Management System (Demo)</h3>
-          <p class="muted">Academic CRUD demo to manage books, borrowers, and transactions with simple admin flows.</p>
+          <p class="muted">Academic CRUD system to manage books, borrowers, and transactions, showcasing database design, reporting, and admin flows.</p>
           <p><strong>Tech:</strong> Java • MySQL • PHPMyAdmin</p>
+        </div>
+      </article>
+
+      <article class="project reveal-sm">
+        <div class="proj-left">
+          <h3>Responsive Business Websites</h3>
+          <p class="muted">Developed mobile-friendly websites for small business clients with clean UI/UX, contact forms, and responsive layouts. Delivered projects with positive client feedback and repeat referrals.</p>
+          <p><strong>Tech:</strong> HTML • CSS • JavaScript</p>
+        </div>
+      </article>
+
+      <article class="project reveal-sm">
+        <div class="proj-left">
+          <h3>Android App — Ultrasound Center Isabela</h3>
+          <p class="muted">Developed an Android app for managing patient appointments, with offline storage and user-friendly interfaces. Demonstrated ability to take a project from concept to functional prototype independently.</p>
+          <p><strong>Tech:</strong> Android • Java/Flutter • SQLite</p>
         </div>
       </article>
     </section>
@@ -170,6 +195,26 @@
     <section id="experience" class="panel reveal">
       <h2>Experience</h2>
       <div class="timeline">
+        <div class="entry">
+          <h4>Technical Support Specialist — MyNetFone (Australia)</h4>
+          <p class="company">Remote</p>
+          <ul>
+            <li>Tier 1–2 technical support for Australian clients: VoIP, NBN, modem/router troubleshooting, porting.</li>
+            <li>Managed activations, billing concerns, and escalations to AU tech teams.</li>
+            <li>Maintained high customer satisfaction and clear, professional communication.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <h4>Service Provider / Negotiator — Beyond Finance (US)</h4>
+          <p class="company">Remote</p>
+          <ul>
+            <li>Outbound calls to creditors for debt settlements, coordinated payments through PayOps.</li>
+            <li>Maintained accurate documentation and client communications.</li>
+            <li>Consistently met client satisfaction and operational goals.</li>
+          </ul>
+        </div>
+
         <div class="entry">
           <h4>Freelance Virtual Assistant</h4>
           <p class="company">Remote — 2020 to Present</p>
@@ -185,14 +230,6 @@
           <p class="company">2019 — 2020</p>
           <ul>
             <li>Collected and standardized property tax data for US-based projects.</li>
-          </ul>
-        </div>
-
-        <div class="entry">
-          <h4>Independent Developer — MyUCI (Client Project)</h4>
-          <p class="company">2024</p>
-          <ul>
-            <li>Full prototype delivery: Flutter UI, Firebase backend, testing coordination with clinic staff.</li>
           </ul>
         </div>
       </div>
