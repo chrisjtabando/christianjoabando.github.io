@@ -272,64 +272,51 @@ h2 {
     color: #e6fbff
 }
 
-/* Projects / gallery */
-.project {
-    display: grid;
-    grid-template-columns: 1fr 420px;
-    gap: 18px;
-    align-items: start
-}
-
-.gallery-note {
-    color: #cbd6db;
-    margin-bottom: 8px
-}
-
+/* Gallery Grid */
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px
+    /* Increased min-width slightly for better visibility of app details */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); 
+    gap: 16px; /* More "breathable" spacing */
 }
 
 .thumb {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-    padding: 6px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform .16s ease, box-shadow .16s ease
+    background: rgba(255, 255, 255, 0.03);
+    padding: 4px; /* Thinner padding acts like a phone bezel */
+    border-radius: 14px; /* Softer, more modern corners */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle edge definition */
+    overflow: hidden;
+    transition: transform .2s cubic-bezier(0.33, 1, 0.68, 1), 
+                box-shadow .2s ease, 
+                border-color .2s ease;
 }
 
 .thumb img {
     width: 100%;
-    height: auto;
-    max-height: 220px;
+    /* Forces all screenshots to the same mobile-friendly height */
+    aspect-ratio: 9 / 16; 
     object-fit: cover;
-    border-radius: 6px
+    object-position: top; /* Ensures we see the app header if cropped */
+    border-radius: 10px;
+    display: block;
 }
 
 .thumb:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65)
+    transform: translateY(-8px) scale(1.02); /* Slight lift and grow */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: #3b82f6; /* Optional: brand color highlight on hover */
+    background: rgba(255, 255, 255, 0.05);
 }
 
-/* Experience */
-.timeline {
-    display: grid;
-    gap: 14px
+.gallery-note {
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #9fbfc9; /* Matches your experience text color for consistency */
+    margin-bottom: 12px;
 }
 
-.entry h4 {
-    margin: 0
-}
 
-.company {
-    font-style: italic;
-    color: #9fbfc9;
-    margin-bottom: 8px
-}
 
 /* Testimonials / blockquote */
 blockquote {
