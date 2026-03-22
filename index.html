@@ -152,8 +152,15 @@
           <p><strong>Role:</strong> Full prototype development: UI, backend integration, deployment/testing coordination</p>
         </div>
         <div class="proj-right">
-          <p class="gallery-note">Click to enlarge screenshots</p>
-          <div class="gallery-grid">
+    <p class="gallery-note">Click to enlarge screenshots</p>
+    
+    <div class="gallery-container">
+        <!-- Navigation Buttons -->
+        <button class="nav-btn prev" onclick="scrollGallery(-1)">&#10094;</button>
+        <button class="nav-btn next" onclick="scrollGallery(1)">&#10095;</button>
+
+        <!-- Your original grid, now a flex-row -->
+        <div class="gallery-grid" id="galleryGrid">
             <figure class="thumb"><img src="images/Login Screen.png" alt="Login Screen" data-index="0"></figure>
             <figure class="thumb"><img src="images/Home Screen.png" alt="Home Screen" data-index="1"></figure>
             <figure class="thumb"><img src="images/ForgotReset Password Screen.png" alt="Forgot/Reset Password" data-index="2"></figure>
@@ -162,8 +169,9 @@
             <figure class="thumb"><img src="images/Services Screen.png" alt="Services Screen" data-index="5"></figure>
             <figure class="thumb"><img src="images/Sign Up Screen.png" alt="Sign Up Screen" data-index="6"></figure>
             <figure class="thumb"><img src="images/Book Appointment Screen.png" alt="Book Appointment Screen" data-index="7"></figure>
-          </div>
         </div>
+    </div>
+</div>
       </article>
 
       <article class="project reveal-sm">
