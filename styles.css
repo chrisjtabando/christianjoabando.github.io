@@ -273,69 +273,63 @@ h2 {
 }
 
 /* Gallery Grid */
-/* 1. The Container: Horizontal scroll with "snap" behavior */
-.gallery-grid {
+/* Container to hold buttons and grid */
+.gallery-container {
+    position: relative;
     display: flex;
+    align-items: center;
+}
+
+/* Transform grid into a scrollable row */
+.gallery-grid {
+    display: flex; /* Changed from grid */
     overflow-x: auto;
-    overflow-y: hidden;
-    padding: 60px 40px; /* Space for the "fan" to expand */
-    gap: -40px; /* Negative gap creates the overlapping/fanning effect */
     scroll-snap-type: x mandatory;
-    perspective: 1200px; /* Needed for 3D tilt */
-    scrollbar-width: none; /* Hide scrollbar for cleaner look */
+    gap: 20px;
+    padding: 20px 10px;
+    scrollbar-width: none; /* Hides scrollbar on Firefox */
 }
 
 .gallery-grid::-webkit-scrollbar {
-    display: none;
+    display: none; /* Hides scrollbar on Chrome/Safari */
 }
 
-/* 2. The Card Base */
+/* Each card */
 .thumb {
-    flex: 0 0 200px; /* Fixed width for the stack */
-    aspect-ratio: 9 / 16;
-    background: #1a1a1a;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5); /* Shadow on the left for stacking depth */
-    scroll-snap-align: center;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    transform-origin: center bottom;
-    cursor: pointer;
-    position: relative;
-    /* This creates the initial fan tilt */
-    transform: rotateY(-20px) rotateZ(-5deg); 
+    flex: 0 0 220px; /* Keeps cards a fixed width */
+    scroll-snap-align: center; /* Snaps to middle when scrolling */
+    transition: transform 0.3s ease;
 }
 
-/* 3. The Interactive Fan Effect */
-/* When hovering the container, cards spread out slightly */
-.gallery-grid:hover .thumb {
-    margin-right: 20px; /* Spread cards apart */
-    transform: rotateY(0) rotateZ(0); /* Straighten up */
-}
-
-/* Individual Card Focus */
-.thumb:hover {
-    transform: translateY(-30px) scale(1.1) !important; /* Pop out of stack */
-    z-index: 100;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-    border-color: #3b82f6;
-}
-
-/* 4. Image Polish */
 .thumb img {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 9/16;
     object-fit: cover;
-    border-radius: 22px;
-    pointer-events: none;
+    border-radius: 12px;
 }
 
-/* 5. Mobile Adjustment */
-@media (max-width: 600px) {
-    .thumb {
-        flex: 0 0 160px;
-    }
+/* Fancy Buttons */
+.nav-btn {
+    position: absolute;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s;
 }
+
+.nav-btn:hover {
+    background: #3b82f6;
+    transform: scale(1.1);
+}
+
+.prev { left: -10px; }
+.next { right: -10px; }
 
 
 
