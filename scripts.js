@@ -10,14 +10,14 @@
     initHeaderShrink();
     initCursorCanvas(); // Tron-like particles
     initViewProjectsButton();
-    initGalleryNav(); // The fix for your gallery buttons
+    initGalleryNav();   // Horizontal scroll navigation
   });
 
   // --- Gallery Horizontal Scroll Navigation ------------------------------------------------------
   function initGalleryNav() {
     const grid = document.querySelector('.gallery-grid');
-    const prevBtn = document.querySelector('.nav-btn.prev');
-    const nextBtn = document.querySelector('.nav-btn.next');
+    const prevBtn = document.querySelector('.js-gallery-prev');
+    const nextBtn = document.querySelector('.js-gallery-next');
 
     if (!grid || !prevBtn || !nextBtn) return;
 
@@ -74,7 +74,7 @@
     });
   }
 
-  // --- Reveal on scroll -------------------------------------------------------------------------
+  // --- Reveal on scroll (IntersectionObserver) ---------------------------------------------------
   function initRevealOnScroll(){
     const revealables = document.querySelectorAll('.reveal, .reveal-sm');
     if (!('IntersectionObserver' in window) || revealables.length === 0) return;
@@ -145,7 +145,7 @@
     });
   }
 
-  // --- CTA scroll to contact -------------------------------------------------------------------
+  // --- CTA scroll -------------------------------------------------------------------------------
   function initCTA(){
     const cta = document.getElementById('contact-cta');
     if (!cta) return;
@@ -193,6 +193,7 @@
 
     let cw = window.innerWidth;
     let ch = window.innerHeight;
+
     function resize(){
       const dpr = window.devicePixelRatio || 1;
       cw = window.innerWidth;
@@ -231,6 +232,7 @@
     function tick(now){
       const dt = now - last;
       last = now;
+      
       ctx.fillStyle = 'rgba(2,6,12,0.22)';
       ctx.fillRect(0, 0, cw, ch);
 
@@ -254,6 +256,7 @@
         const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
         grad.addColorStop(0, `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, ${0.55 * alpha})`);
         grad.addColorStop(1, `hsla(${p.col.h}, ${p.col.s}%, ${p.col.l}%, 0)`);
+        
         ctx.fillStyle = grad;
         ctx.beginPath(); ctx.arc(p.x, p.y, glowR, 0, Math.PI*2); ctx.fill();
 
@@ -265,7 +268,7 @@
         ctx.restore();
       }
 
-      // Draw connecting lines
+      // Draw connecting lines for Tron grid effect
       for (let i = 0; i < particles.length; i++){
         const a = particles[i];
         for (let j = i+1; j < particles.length; j++){
@@ -277,6 +280,7 @@
             const alpha = 0.26 * (1 - dist / 50);
             ctx.beginPath();
             ctx.strokeStyle = `hsla(${a.col.h}, ${a.col.s}%, ${a.col.l}%, ${alpha})`;
+            ctx.lineWidth = 1.0;
             ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
           }
         }
@@ -285,9 +289,11 @@
       ctx.globalCompositeOperation = 'source-over';
       requestAnimationFrame(tick);
     }
+    
     ctx.fillStyle = '#02060c';
     ctx.fillRect(0, 0, cw, ch);
     requestAnimationFrame(tick);
+    
     document.addEventListener('visibilitychange', () => { if (document.hidden) last = performance.now(); });
   }
 
